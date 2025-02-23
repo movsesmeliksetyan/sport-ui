@@ -2,6 +2,7 @@ version: '3.8'
 
 services:
   app:
+    image: scraper-app
     build:
       context: .
       dockerfile: Dockerfile
@@ -10,10 +11,9 @@ services:
       - '3000:3000'
     environment:
       - NODE_ENV=production
-      - NEXT_PUBLIC_ACE_STREAM_URL=http://192.168.0.99:6878/ace/manifest.m3u8
+      - NEXT_PUBLIC_ACE_STREAM_URL=http://localhost:6878/ace/manifest.m3u8
     volumes:
       - .:/app
-      # Exclude node_modules and .next from volume mounting
       - /app/node_modules
       - /app/.next
     restart: unless-stopped
@@ -22,3 +22,10 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
+
+  acestream:
+    image: wafy80/acestream
+    container_name: acestream
+    ports:
+      - '6878:6878'
+    restart: unless-stopped
