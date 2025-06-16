@@ -20,3 +20,7 @@ To stop the services:
 ```bash
 docker compose down
 ```
+
+## Live Updates Page
+
+Visit `/live` to see the match list with automatic updates every minute.
