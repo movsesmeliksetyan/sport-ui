@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState, use } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Container,
   Typography,
@@ -14,18 +14,10 @@ import { VideoPlayer } from '@/components/VideoPlayer';
 import { fetchMatchDetails } from '@/services/matchService';
 import { useVideoPlayer } from '@/hooks/useVideoPlayer';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { useRouter } from 'next/navigation';
+import { useRouter, useParams } from 'next/navigation';
 
-interface PageParams {
-  matchId: string;
-}
-
-interface MatchDetailsProps {
-  params: Promise<PageParams>;
-}
-
-const MatchDetails: React.FC<MatchDetailsProps> = ({ params }) => {
-  const { matchId } = use(params);
+const MatchDetails: React.FC = () => {
+  const { matchId } = useParams<{ matchId: string }>();
   const [matchData, setMatchData] = useState<IMatchDetails | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
